@@ -4,25 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="../src/index.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Weather</title>
 </head>
 <body>
     <div id="inputDiv">
-        <label for="location">Location:</label>
-        <input type="text" id="location" name="location" value="Berlin">
+        <!-- <label for="location">Location:</label> -->
+        <input type="text" id="locationInput" name="location" value="Berlin" placeholder="Location">
         <button type="button" id="search">Search</button>
     </div>
-    <h2 id="placeName"></h2>
+
+    <h1 id="placeName">NaN</h1>
+
     <div id="current">
-        <h3 class="title">Currnet Details</h3>
-            <p id="temp"></p>
-            <p id="feelLike"></p>
-            <span>
-                <img id="conditionImg" height="50px" width="50px">
-                <p id="condition"></p>
-            </span>
-            <p id="humdity"></p>
-            <p id="windSpeed"></p>
+
+        <h2 class="title">Currnet Details</h2>
+
+        <div class="currentBox" id="displayCurrentTemp">
+            <img id="conditionImg">
+            <p id="temp">NaN</p>
+        </div>
+
+        <div class="currentBox">
+            <h3 class="boxTitle">Apparent Temperature</h3>
+            <p id="feelLike">NaN</p>
+        </div>
+
+        <div class="currentBox">
+            <h3 class="boxTitle">Weather</h3>
+            <p id="condition">NaN</p>
+        </div>
+
+        <div class="currentBox">
+            <h3 class="boxTitle">Humdity</h3>
+            <p id="humdity">NaN</p>
+        </div>
+
+        <div class="currentBox">
+            <h3 class="boxTitle">Wind Speed</h3>
+            <p id="windSpeed">NaN</p>
+        </div>
+
     </div>
+
 </body>
 </html>

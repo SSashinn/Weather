@@ -1,5 +1,18 @@
 const searchBtn = document.getElementById('search');
 const div = document.getElementById('current');
+const loc = document.querySelector('#locationInput');
+
+searchBtn.onclick = weatherDetail;
+
+loc.addEventListener("keypress", (event) =>{
+    if (event.key === "Enter"){
+        // Cancel the default action, if needed
+        event.preventDefault();
+        // Trigger the button element with a click
+        searchBtn.click();
+    }
+})
+
 
 async function weather(){
     const url = await fetch(`http://api.weatherapi.com/v1/forecast.json?key=abf5bd99fb044826904112747232309&q=${getLocation()}&days=3`);
@@ -9,9 +22,8 @@ async function weather(){
 }
 
 function getLocation(){
-    const loc = document.querySelector('#location');
+    // const loc = document.querySelector('#locationInput');
     const value = loc.value;
-    // loc.value = '';
     return value;
 }
 
@@ -31,7 +43,7 @@ async function weatherDetail(){
 
     // Printing Apparent Temp   
     const feelLike = document.getElementById('feelLike');
-    feelLike.textContent = `Apparent Temperature: ${current.feelslike_c}°C`;
+    feelLike.textContent = `${current.feelslike_c}°C`;
 
     // Printing Location
     const conditionText = document.getElementById('condition');
@@ -48,7 +60,4 @@ async function weatherDetail(){
     image.src = `https:${condition.icon}`;
 } 
 
-
-
-weatherDetail();
-searchBtn.onclick = weatherDetail;
+// weatherDetail();
