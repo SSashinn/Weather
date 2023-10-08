@@ -7,9 +7,22 @@
     <title>Weather</title>
 </head>
 <body>
-    <label for="location">Location:</label>
-    <input type="text" id="location" name="location" value="mumbai" placeholder="Dublin">
-    <button type="button" id="search">Search</button>
-    <p id="current"></p>
+    <div id="inputDiv">
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="Berlin">
+        <button type="button" id="search">Search</button>
+    </div>
+    <h2 id="placeName"></h2>
+    <div id="current">
+        <h3 class="title">Currnet Details</h3>
+            <p id="temp"></p>
+            <p id="feelLike"></p>
+            <span>
+                <img id="conditionImg" height="50px" width="50px">
+                <p id="condition"></p>
+            </span>
+            <p id="humdity"></p>
+            <p id="windSpeed"></p>
+    </div>
 </body>
 </html>
