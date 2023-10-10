@@ -2,7 +2,7 @@ const searchBtn = document.getElementById('search');
 const div = document.getElementById('current');
 const loc = document.querySelector('#locationInput');
 
-searchBtn.onclick = weatherDetail;
+searchBtn.onclick = printData;
 
 loc.addEventListener("keypress", (event) =>{
     if (event.key === "Enter"){
@@ -31,7 +31,6 @@ async function weatherDetail(){
     const response = await weather();
     const current = response.current;
     const location = response.location;
-    const forecast = response.forecast;
     const condition = current.condition;
 
     // Printing Location
@@ -60,4 +59,57 @@ async function weatherDetail(){
     image.src = `https:${condition.icon}`;
 } 
 
-// weatherDetail();
+async function dailyHour() {
+    let time = 0;
+    const hourDetails1 = document.getElementById('todayHourDetails1');
+    const hourDetails2 = document.getElementById('todayHourDetails2');
+    const response = await weather();
+    const todayForecast = response.forecast.forecastday[0].hour;
+
+    // Removing already Printed Forecast From the screen
+    while(hourDetails1.firstChild || hourDetails2.firstChild){
+        try {
+            hourDetails1.removeChild(hourDetails1.firstChild);
+        } catch (error) {
+            hourDetails2.removeChild(hourDetails2.firstChild); 
+        }
+    }
+    todayForecast.forEach(element => {
+        // Create New Div To Store The Hour
+        const div = document.createElement('div');
+        div.classList.add('hour');
+        if (time<12){
+            hourDetails1.appendChild(div);
+        }
+        else{
+            hourDetails2.appendChild(div);
+        }
+
+
+        // Create an Hour Display
+        const hour = document.createElement('p');
+        hour.textContent  = `${time}:00`;
+        time+=1;
+        div.appendChild(hour);
+
+        // Adding an Icon
+        const newIcon = document.createElement('img');
+        const url = `https:${element.condition.icon}`;
+        newIcon.src =url
+        div.appendChild(newIcon);
+
+        // Printing Temp
+        const temp = document.createElement('p');
+        temp.textContent = `${element.temp_c} °C`;
+        div.appendChild(temp);
+    });
+
+}
+
+async function printData() {
+    weatherDetail();
+    dailyHour();
+}
+
+printData();
+

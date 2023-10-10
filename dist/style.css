@@ -57,10 +57,10 @@ body{
 }
 #current{
     display: grid;
-    grid-template-columns: 20vw 20vw;
-    grid-template-rows: 8vh 9vh 14vh 14vh;
+    grid-template-columns: 30vw 30vw;
     border: 1px solid black;
-    padding: 0vw 30vw;
+    padding: 0vw 20vw;
+    /* background-color: darkblue; */
 }
 
 .title{
@@ -85,8 +85,13 @@ body{
     min-width: 225px;
 }
 
+/* .currentBox>p{
+    color: rgb(255, 255, 255);
+} */
+
 #temp{
-    font-size: 32px;
+    /* font-size: 32px; */
+    font-size: 2.5rem;
     font-weight: bold;
     margin: 0;
     padding: 10px 0px;
@@ -96,4 +101,11 @@ body{
     margin-top: -20px;
     height: 100px;
     width: 100px;
+}
+
+#todayHourDetails1,#todayHourDetails2{
+    display: flex;
+    margin-left: 15%;
+    text-align: center;
+    font-weight: bold;
 }
