@@ -32,17 +32,23 @@ async function weatherDetail(){
     const current = response.current;
     const location = response.location;
     const condition = current.condition;
+    const scale = toggle();
 
     // Printing Location
     const placeName = document.getElementById('placeName');
     placeName.textContent = `${location.name}`;
     // Printing Current Temp
     const temp = document.getElementById('temp');
-    temp.textContent = `${current.temp_c} °C`;
+    scale === 'C' ? 
+    temp.textContent = `${current.temp_c} °C`:
+    temp.textContent = `${current.temp_f} °F`;
 
     // Printing Apparent Temp   
     const feelLike = document.getElementById('feelLike');
-    feelLike.textContent = `${current.feelslike_c}°C`;
+    scale === 'C' ? 
+    feelLike.textContent = `${current.feelslike_c} °C`:
+    feelLike.textContent = `${current.feelslike_f} °F`;
+
 
     // Printing Location
     const conditionText = document.getElementById('condition');
@@ -50,10 +56,13 @@ async function weatherDetail(){
 
     // Printing Humdity
     const humdity = document.getElementById('humdity');
-    humdity.textContent = `Humdity: ${current.humidity}%`;   
+    humdity.textContent = `${current.humidity}%`;   
 
     const windSpeed = document.getElementById('windSpeed');
-    windSpeed.textContent = `Wind Speed: ${current.wind_kph} Km/h`;
+    scale === 'C' ? 
+    windSpeed.textContent = `${current.wind_kph} km/h`:
+    windSpeed.textContent = `${current.wind_mph} mi/h`;
+
 
     const image = document.getElementById('conditionImg');
     image.src = `https:${condition.icon}`;
@@ -65,6 +74,7 @@ async function dailyHour() {
     const hourDetails2 = document.getElementById('todayHourDetails2');
     const response = await weather();
     const todayForecast = response.forecast.forecastday[0].hour;
+    const scale = toggle();
 
     // Removing already Printed Forecast From the screen
     while(hourDetails1.firstChild || hourDetails2.firstChild){
@@ -100,15 +110,70 @@ async function dailyHour() {
 
         // Printing Temp
         const temp = document.createElement('p');
-        temp.textContent = `${element.temp_c} °C`;
+        scale === 'C'? temp.textContent = `${element.temp_c} °C`: temp.textContent = `${element.temp_f} °F`
         div.appendChild(temp);
     });
 
 }
 
+async function forecast() {
+    const response = await weather();
+    const forecast = response.forecast.forecastday;
+    const tmwrFore = document.getElementById('tmrwFore');
+    const dayTmrwFore = document.getElementById('dayTmrwFore');
+    const scale = toggle();
+
+    while(tmwrFore.firstChild || dayTmrwFore.firstChild){
+        try {
+            tmwrFore.removeChild(tmwrFore.firstChild);
+        } catch (error) {
+            dayTmrwFore.removeChild(dayTmrwFore.firstChild); 
+        }
+    }
+
+    for (let i = 1;i<=2;i++){
+        const date = forecast[i].date;
+        // from 2023-10-09 to 09-10-2023
+        const reverseDate = date.split('-').reverse().join('-');
+        const day = forecast[i].day;
+
+        const tmrwDate = document.createElement('p');
+        tmrwDate.classList.add = 'dateForecast';
+        tmrwDate.textContent = `${reverseDate}`;
+        i==1 ? tmwrFore.appendChild(tmrwDate): dayTmrwFore.appendChild(tmrwDate);
+
+        const img = document.createElement('img');
+        img.classList.add  ='iconForecast';
+        img.src = `https:${day.condition.icon}`;
+        i==1 ? tmwrFore.appendChild(img): dayTmrwFore.appendChild(img);
+
+        const text = document.createElement('p');
+        text.classList.add = 'conditionForecast';
+        text.textContent = `${day.condition.text}`;
+        i==1 ? tmwrFore.appendChild(text): dayTmrwFore.appendChild(text);
+
+        const temp = document.createElement('p');
+        temp.classList.add = 'tempForecast';
+        scale ==='C'? temp.textContent = `${day.maxtemp_c} °C/ ${day.mintemp_c} °C`:
+                    temp.textContent = `${day.maxtemp_f} °F/ ${day.mintemp_f} °F`;
+        i==1 ? tmwrFore.appendChild(temp): dayTmrwFore.appendChild(temp);
+    }
+
+}
+
+function toggle(){
+    const btn = document.getElementById('checkbox');
+    if (btn.checked ===true){
+        return `F`;
+    }
+    else{
+        return `C`;
+    }
+}
 async function printData() {
     weatherDetail();
     dailyHour();
+    forecast();
 }
 
 printData();

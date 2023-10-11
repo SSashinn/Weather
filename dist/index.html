@@ -10,9 +10,15 @@
 <body>
     <div id="inputDiv">
         <!-- <label for="location">Location:</label> -->
-        <input type="text" id="locationInput" name="location" value="Berlin" placeholder="Location">
+        <input type="text" id="locationInput" name="location" value="Mumbai" placeholder="Location">
         <button type="button" id="search">Search</button>
+        <span>
+            <label for="scale" id="scale">Imperial System</label>
+            <input type="checkbox" value="F" id="checkbox">
+        </span>
     </div>
+
+
 
     <h1 id="placeName">XYZ</h1>
 
@@ -31,7 +37,7 @@
         </div>
 
         <div class="currentBox">
-            <h3 class="boxTitle">Weather</h3>
+            <h3 class="boxTitle">Weather Condition</h3>
             <p id="condition">NaN</p>
         </div>
 
@@ -52,9 +58,18 @@
 
 
     <div id="forecast">
-        <h2 class="title">Forecast</h2>
-
+        <h2 class="titleFore">Forecast</h2>
+        <div id="tmrwFore" class="futureFore">
+            <!-- <p id="tmrwDate"></p>
+            <img id="tmrwIcon"> -->
+        </div>
+        <div id="dayTmrwFore" class="futureFore">
+            <!-- <p id="tmrwDate"></p>
+            <img id="tmrwIcon"> -->
+        </div>
     </div>
+
+
 
 </body>
 </html>
