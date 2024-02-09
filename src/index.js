@@ -163,6 +163,7 @@ async function forecast() {
 
 function toggle(){
     const btn = document.getElementById('checkbox');
+    btn.onclick = printData;
     if (btn.checked ===true){
         return `F`;
     }
