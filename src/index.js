@@ -1,6 +1,8 @@
 const searchBtn = document.getElementById('search');
 const div = document.getElementById('current');
 const loc = document.querySelector('#locationInput');
+const inputDiv = document.getElementById('inputDiv');
+let loading;
 
 searchBtn.onclick = printData;
 
@@ -172,9 +174,19 @@ function toggle(){
     }
 }
 async function printData() {
+    loading = true;
+    if (loading){
+        inputDiv.style.display = 'none';
+        div.style.display = 'none';
+    }
     weatherDetail();
     dailyHour();
     forecast();
+    loading = false;
+    if (!loading){
+        inputDiv.style.display = 'flex';
+        div.style.display = 'grid';
+    }
 }
 
 printData();
